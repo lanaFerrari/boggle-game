@@ -1,4 +1,4 @@
-# Bogle-game
+# Boggle-game
 
 Full functional browser based game using HTML, CSS/SCSS and JavaScript. This project was created having in mind the four fundamental concepts of Object-oriented programming.
 
