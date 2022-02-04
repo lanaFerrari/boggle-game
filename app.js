@@ -1,20 +1,20 @@
 class Game {
-    constructor(board) {
+    constructor(allBoard) {
         this._points = 0;
         this._userWord = "";
+        this.__letters = [];
         this._userWords = [];
         this._allPossibleWords = [];
         this._randomLetters = [];
-        this._box = box;
-        this._board = board;
-        this._offsetX = 0;
-        this._offsetY = 0;
+        this._boxes = boxes;
+        this._board = allBoard;
         this._active = false;
+        this._userPointsDisplay = userPointsDisplay;
+        this._userWordsDisplay = userWordsDisplay;
         this.generateLetters();
         this.populateBoard();
-        this.addClickListener();
-        this.addMouseMove();
-        this.addMouseUp()
+        this.addMouseDown();
+        this.addMouseUp();
         this.getAllPossibleWords();
     }
 
@@ -25,84 +25,63 @@ class Game {
             if (randomLetter !== undefined) {
                 this._randomLetters.push(randomLetter);
             } else {
-                this._randomLetters.push("A");
+                this._randomLetters.push("O");
             }
         }
     }
 
     populateBoard() {
-        const length = [...this._box].length
+        const length = [...this._boxes].length
 
         for (let index = 0; index < length; index++) {
-            const element = [...this._box][index];
+            const element = [...this._boxes][index];
             element.innerText = `${this._randomLetters[index]}`
         }
     }
 
-
-    // Get letters and save into a word
-    // Check if the data array contains the word 
-    // if yes - add to listOfWords and display in .words_list
-    // if yes - add one point and display .points
-    // else - erase word 
-    addClickListener() {
-        // console.log(this._box);
-        // console.log(this._board._element);
-        this._board._element.addEventListener('mousedown', (e) => {
-            e.preventDefault()
-            this._offsetX = e.offsetX;
-            this._offsetY = e.offsetY;
-            this._active = true;
-            // console.log(e)
-            console.log("first coordenates", this._offsetX, this._offsetY)
-            console.log("mousedown", e.target.innerText, this._active);
-            return e.offsetX;
-            this._offsetY = e.offsetY;
-        })
-        return this._active
-
-        this._offsetX
-        this._offsetY
-        // console.log(this._board.element);
-
-    }
-
-    addMouseMove() {
-
-        this._board._element.addEventListener('mousemove', (e) => {
-            // e.preventDefault()
-            console.log("hello", this._active);
-            // if (this._active) {
-            console.log("prev coordenates", this._offsetX, this._offsetY)
-            this._offsetX = e.offsetX;
-            this._offsetY = e.offsetY;
-            console.log("new coordenates", this._offsetX, this._offsetY)
-            // }
-
-            console.log("mousemove", e.target.innerText, this._active);
-            // this._userWord += item.innerText;
-            // console.log("word", this._userWord);
-        })
-
-    }
-
-    addMouseUp() {
-
-        this._board._element.addEventListener('mouseup', (e) => {
-            e.preventDefault()
-
+    addMouseDown = () => {
+        this._active = true;
+        // console.log(this._boxes);
+        // console.log(this._board._element)
+        this._board._element.addEventListener("mousedown", (event) => {
+            // console.log(event.target.innerText);
             if (this._active) {
-                console.log("prev coordenates inside mouseup", this._offsetX, this._offsetY)
-                this._offsetX = 0
-                this._offsetY = 0
-                this._active = false;
-                console.log("new coordenates inside mouseup", this._offsetX, this._offsetY, this._active)
+                this.addMouseMove();
             }
+        });
+    };
 
-
-
-            // console.log(this._board.element);
+    addMouseMove = () => {
+        this._board._element.addEventListener("mousemove", (event) => {
+            // console.log("mousemov", event.target.innerText);
+            this.__letters.push(event.target.innerText);
         })
+        // console.log("letters out", this.__letters);
+        this.filterLetters(this.__letters);
+    }
+
+    addMouseUp = () => {
+        this._board._element.addEventListener("mouseup", (event) => {
+            // console.log("mouseUp", event.target.innerText);
+            this._board._element.removeEventListener("mousemove", this.addMouseMove());
+            this._active = false;
+
+            this.checkIfUserWordMatches()
+        })
+    }
+
+    filterLetters = (arr) => {
+        let newArr = []
+        for (let i = 0; i < arr.length; i++) {
+            const item = arr[i];
+
+            if (arr[i] !== arr[i + 1]) {
+                newArr.push(item);
+            }
+        }
+
+        this._userWord = newArr.join('');
+        // console.log("User word", this._userWord)
     }
 
     getAllPossibleWords() {
@@ -113,10 +92,38 @@ class Game {
             .then((response) => response.json())
             .then((data) => {
                 this._allPossibleWords = data;
-                console.log(this._allPossibleWords)
+                console.log(data)
             });
     }
 
+    checkIfUserWordMatches() {
+        // console.log("active", this._active);
+        // console.log("word", this._userWord);
+        // console.log("Includes?", this._allPossibleWords.includes(this._userWord));
+
+        if (this._allPossibleWords.includes(this._userWord)) {
+            this._userWords.push(this._userWord);
+            this._points++;
+        }
+        this.updateResult();
+
+        this._userWord = "";
+        this.__letters = [];
+    }
+
+    updateResult() {
+        console.log(this._points, this._userWords)
+        this._userPointsDisplay.innerText = this._points;
+        this._userWordsDisplay.innerText = this._userWords;
+
+
+        //Update Score
+        // const updateScore = (points) => {
+        //     const display = document.querySelector(".points");
+        //     display.innerText = points;
+        // };
+
+    }
 }
 
 class Board {
@@ -129,13 +136,9 @@ class Board {
     }
 }
 
-const box = document.querySelectorAll(".box");
-const board = new Board(document.querySelector(".board"), box);
+const allBoard = document.querySelector(".board");
+const boxes = document.querySelectorAll(".box");
+const userWordsDisplay = document.querySelector(".words_list")
+const userPointsDisplay = document.querySelector(".points")
+const board = new Board(allBoard, boxes, userPointsDisplay, userWordsDisplay);
 const game = new Game(board);
-
-
-//Update Score
-const updateScore = (points) => {
-    const display = document.querySelector(".points");
-    display.innerText = points;
-};
