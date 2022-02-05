@@ -22,4 +22,4 @@ Requirements
 
 ## Credits
 - API: <a href="https://codebox.net/pages/boggle-game-solver-and-web-service">codebox.net</a>
-- Font: <a href="https://fonts.google.com/">Google fonts</a>
+- Font: <a href="https://fonts.google.com/">Google Fonts</a>
