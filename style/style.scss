@@ -70,7 +70,8 @@ h3 {
 
 .active {
   border: 1px solid $orange-color;
-  border-radius: 5px;
+  border-radius: 50%;
+  color: white;
   background-color: $orange-color;
 }
 

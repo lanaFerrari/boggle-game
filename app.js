@@ -41,8 +41,10 @@ class Game {
 
     addMouseDown = () => {
         // console.log("active inside mouse down", this._active)
-        // console.log(this._boxes);
-        console.log(this._board._element)
+        // console.log("mouse down", this._boxes);
+        // console.log("mouse down", this._board._element)
+
+
         this._board._element.addEventListener("mousedown", (event) => {
             this.addMouseMove(true);
         });
@@ -51,27 +53,42 @@ class Game {
     addMouseMove = (active) => {
         this._active = active;
         this._board._element.addEventListener("mousemove", (event) => {
-            // console.log("mousemov", event.target.innerText);
-            // console.log("active inside mouse mov", this._active)
-            // event.target.addClass("active");
             if (this._active) {
                 this._letters.push({
                     id: event.target.id,
                     letter: event.target.innerText,
                 });
+
+                let boxes = [...event.target.classList]
+
+                if (boxes[0] === 'box') {
+                    event.target.classList.add("active");
+                }
+
+                return boxes;
             }
         })
-        // console.log("letters out", this._letters);
+        this.addMouseUp(boxes);
         this.filterLetters(this._letters);
     }
 
-    addMouseUp = () => {
+    addMouseUp = (boxesList) => {
+        if (boxesList) {
+            let boxes = [...boxesList]
+
+            const filteredBoxes = boxes.map(item => {
+                let classes = [...item.classList];
+
+                if (classes.includes('active')) {
+                    item.classList.remove("active");
+                }
+            })
+        }
+
         this._board._element.addEventListener("mouseup", (event) => {
-            // console.log("mouseUp", event.target.innerText);
-            // event.target.removeClass('active');
+
             this._board._element.removeEventListener("mousemove", this.addMouseMove());
             this._active = false;
-
             this.checkIfUserWordMatches()
         })
     }
@@ -98,7 +115,7 @@ class Game {
             .then((response) => response.json())
             .then((data) => {
                 this._allPossibleWords = data;
-                console.log(data)
+                console.log(data);
             });
     }
 
@@ -116,7 +133,6 @@ class Game {
     }
 
     updateResult() {
-        console.log(this._points, this._userWords)
         if (this._points && this._userWords) {
             this._userPointsDisplay.innerText = this._points;
             this._userWordsDisplay.innerText = this._userWords;
