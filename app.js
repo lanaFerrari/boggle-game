@@ -55,7 +55,10 @@ class Game {
             // console.log("active inside mouse mov", this._active)
             // event.target.addClass("active");
             if (this._active) {
-                this._letters.push(event.target.innerText);
+                this._letters.push({
+                    id: event.target.id,
+                    letter: event.target.innerText,
+                });
             }
         })
         // console.log("letters out", this._letters);
@@ -74,17 +77,17 @@ class Game {
     }
 
     filterLetters = (arr) => {
-        let newArr = []
-        for (let i = 0; i < arr.length; i++) {
-            const item = arr[i];
+        let newArr = [];
+        let uniq = {};
+        const filteredArr = arr.filter(obj => !uniq[obj.id] && (uniq[obj.id] = true));
 
-            if (arr[i] !== arr[i + 1]) {
-                newArr.push(item);
-            }
+        for (let i = 0; i < filteredArr.length; i++) {
+            const element = filteredArr[i];
+            newArr.push(element.letter);
         }
 
-        this._userWord = newArr.join('');
-        // console.log("User word", this._userWord)
+        const cleanArr = newArr.filter(letter => letter.length === 1)
+        this._userWord = cleanArr.join('');
     }
 
     getAllPossibleWords() {
@@ -100,9 +103,7 @@ class Game {
     }
 
     checkIfUserWordMatches() {
-        // console.log("active", this._active);
         console.log("word", this._userWord);
-        // console.log("Includes?", this._allPossibleWords.includes(this._userWord));
 
         if (this._allPossibleWords.includes(this._userWord) && !this._userWords.includes(this._userWord)) {
             this._userWords.push(this._userWord);
