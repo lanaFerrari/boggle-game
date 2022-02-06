@@ -40,11 +40,6 @@ class Game {
     }
 
     addMouseDown = () => {
-        // console.log("active inside mouse down", this._active)
-        // console.log("mouse down", this._boxes);
-        // console.log("mouse down", this._board._element)
-
-
         this._board._element.addEventListener("mousedown", (event) => {
             this.addMouseMove(true);
         });
@@ -120,8 +115,6 @@ class Game {
     }
 
     checkIfUserWordMatches() {
-        console.log("word", this._userWord);
-
         if (this._allPossibleWords.includes(this._userWord) && !this._userWords.includes(this._userWord)) {
             this._userWords.push(this._userWord);
             this._points++;
