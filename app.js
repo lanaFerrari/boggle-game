@@ -2,7 +2,7 @@ class Game {
     constructor(allBoard) {
         this._points = 0;
         this._userWord = "";
-        this.__letters = [];
+        this._letters = [];
         this._userWords = [];
         this._allPossibleWords = [];
         this._randomLetters = [];
@@ -40,29 +40,33 @@ class Game {
     }
 
     addMouseDown = () => {
-        this._active = true;
+        // console.log("active inside mouse down", this._active)
         // console.log(this._boxes);
-        // console.log(this._board._element)
+        console.log(this._board._element)
         this._board._element.addEventListener("mousedown", (event) => {
-            // console.log(event.target.innerText);
-            if (this._active) {
-                this.addMouseMove();
-            }
+            this.addMouseMove(true);
         });
     };
 
-    addMouseMove = () => {
+    addMouseMove = (active) => {
+        this._active = active;
         this._board._element.addEventListener("mousemove", (event) => {
             // console.log("mousemov", event.target.innerText);
-            this.__letters.push(event.target.innerText);
+            // console.log("active inside mouse mov", this._active)
+            // event.target.addClass("active");
+            if (this._active) {
+                this._letters.push(event.target.innerText);
+            }
+
         })
-        // console.log("letters out", this.__letters);
-        this.filterLetters(this.__letters);
+        // console.log("letters out", this._letters);
+        this.filterLetters(this._letters);
     }
 
     addMouseUp = () => {
         this._board._element.addEventListener("mouseup", (event) => {
             // console.log("mouseUp", event.target.innerText);
+            // event.target.removeClass('active');
             this._board._element.removeEventListener("mousemove", this.addMouseMove());
             this._active = false;
 
@@ -98,31 +102,25 @@ class Game {
 
     checkIfUserWordMatches() {
         // console.log("active", this._active);
-        // console.log("word", this._userWord);
+        console.log("word", this._userWord);
         // console.log("Includes?", this._allPossibleWords.includes(this._userWord));
 
-        if (this._allPossibleWords.includes(this._userWord)) {
+        if (this._allPossibleWords.includes(this._userWord) && !this._userWords.includes(this._userWord)) {
             this._userWords.push(this._userWord);
             this._points++;
         }
         this.updateResult();
 
         this._userWord = "";
-        this.__letters = [];
+        this._letters = [];
     }
 
     updateResult() {
         console.log(this._points, this._userWords)
-        this._userPointsDisplay.innerText = this._points;
-        this._userWordsDisplay.innerText = this._userWords;
-
-
-        //Update Score
-        // const updateScore = (points) => {
-        //     const display = document.querySelector(".points");
-        //     display.innerText = points;
-        // };
-
+        if (this._points && this._userWords) {
+            this._userPointsDisplay.innerText = this._points;
+            this._userWordsDisplay.innerText = this._userWords;
+        }
     }
 }
 
@@ -138,7 +136,7 @@ class Board {
 
 const allBoard = document.querySelector(".board");
 const boxes = document.querySelectorAll(".box");
-const userWordsDisplay = document.querySelector(".words_list")
+const userWordsDisplay = document.querySelector(".words-list")
 const userPointsDisplay = document.querySelector(".points")
 const board = new Board(allBoard, boxes, userPointsDisplay, userWordsDisplay);
 const game = new Game(board);
