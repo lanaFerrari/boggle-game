@@ -1,5 +1,3 @@
-$orange-color: rgb(245, 131, 26);
-
 html {
   scroll-behavior: smooth;
 }
@@ -18,18 +16,22 @@ span {
 }
 
 .disable-select {
-  user-select: none; /* supported by Chrome and Opera */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+  /* supported by Chrome and Opera */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
 }
 
 .logo {
   padding: 2rem 0 3rem 0;
 }
 
-//Grid and Flex
 .justify-center,
 .box {
   display: grid;
@@ -51,30 +53,23 @@ h3 {
   padding: 30px;
   grid-template-columns: repeat(4, 1fr);
   border-radius: 10px;
-  box-shadow: $orange-color 0px 0px 0px 3px inset,
-    rgb(255, 255, 255) 10px -10px 0px -3px, rgb(31, 193, 27) 10px -10px,
-    rgb(255, 255, 255) 20px -20px 0px -3px, rgb(255, 217, 19) 20px -20px,
-    rgb(255, 255, 255) 30px -30px 0px -3px, rgb(255, 156, 85) 30px -30px,
-    rgb(255, 255, 255) 40px -40px 0px -3px, rgb(255, 85, 85) 40px -40px;
+  box-shadow: #f5831a 0px 0px 0px 3px inset, white 10px -10px 0px -3px, #1fc11b 10px -10px, white 20px -20px 0px -3px, #ffd913 20px -20px, white 30px -30px 0px -3px, #ff9c55 30px -30px, white 40px -40px 0px -3px, #ff5555 40px -40px;
   gap: 0.7rem;
 }
 
 .box {
-  border: 2px solid $orange-color;
+  border: 2px solid #f5831a;
   border-radius: 50%;
   font-size: 35px;
   color: black;
 }
 
-/////
-
 .active {
-  border: 1px solid $orange-color;
+  border: 1px solid #f5831a;
   border-radius: 5px;
-  background-color: $orange-color;
+  background-color: #f5831a;
 }
 
-//For Big Screens
 @media screen and (min-width: 768px) {
   .logo {
     padding: 2rem 0 8rem 0;
@@ -91,17 +86,15 @@ h3 {
 
   .two-column-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr 1fr 2fr;
   }
 
   .points,
-  .words-list {
-    color: $orange-color;
+.words-list {
+    color: #f5831a;
     font-size: 30px;
   }
 }
-
-//For small screens
 @media screen and (max-width: 768px) {
   .hide-small-screen {
     font-size: 0;
