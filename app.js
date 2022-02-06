@@ -57,7 +57,6 @@ class Game {
             if (this._active) {
                 this._letters.push(event.target.innerText);
             }
-
         })
         // console.log("letters out", this._letters);
         this.filterLetters(this._letters);
