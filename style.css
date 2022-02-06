@@ -3,9 +3,16 @@ html {
 }
 
 * {
-  text-align: center;
   box-sizing: border-box;
   font-family: "Secular One", sans-serif;
+  margin: 0;
+}
+
+h3,
+p,
+span {
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 .disable-select {
@@ -22,7 +29,20 @@ html {
 }
 
 .logo {
-  padding: 2rem 0 5rem 0;
+  padding: 2rem 0 3rem 0;
+}
+
+.justify-center,
+.box {
+  display: grid;
+  justify-items: center;
+}
+
+.align-center,
+.box,
+h3 {
+  display: grid;
+  align-items: center;
 }
 
 .board {
@@ -30,16 +50,16 @@ html {
   width: 350px;
   height: 350px;
   display: grid;
-  padding: 15px;
+  padding: 30px;
   grid-template-columns: repeat(4, 1fr);
   border-radius: 10px;
-  border-image: linear-gradient(to right, #ff5555 25%, #ff9c55 25%, #ffd913 50%, #1fc11b 25%, #323f7a 25%, #f32eb8 25%) 5;
   box-shadow: #f5831a 0px 0px 0px 3px inset, white 10px -10px 0px -3px, #1fc11b 10px -10px, white 20px -20px 0px -3px, #ffd913 20px -20px, white 30px -30px 0px -3px, #ff9c55 30px -30px, white 40px -40px 0px -3px, #ff5555 40px -40px;
+  gap: 0.7rem;
 }
 
 .box {
-  display: grid;
-  align-items: center;
+  border: 2px solid #f5831a;
+  border-radius: 50%;
   font-size: 35px;
   color: black;
 }
@@ -50,14 +70,33 @@ html {
   background-color: #f5831a;
 }
 
-.words-list {
-  width: 250px;
-  height: 100px;
-  border: 2px #f5831a solid;
-  border-radius: 10px;
-}
+@media screen and (min-width: 768px) {
+  .logo {
+    padding: 2rem 0 8rem 0;
+  }
 
-.justify-center {
-  display: grid;
-  justify-items: center;
+  .error-message {
+    font-size: 0;
+  }
+
+  .flex {
+    display: flex;
+    gap: 0.7rem;
+  }
+
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .points,
+.words-list {
+    color: #f5831a;
+    font-size: 30px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .hide-small-screen {
+    font-size: 0;
+  }
 }
