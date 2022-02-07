@@ -1,0 +1,19 @@
+{
+  "name": "game",
+  "version": "1.0.0",
+  "description": "Full functional browser based game using HTML, CSS/SCSS and JavaScript. This project was created having in mind the four fundamental concepts of Object-oriented programming.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lanaFerrari/git-github.com-lanaFerrari-boogle-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lanaFerrari/git-github.com-lanaFerrari-boogle-game/issues"
+  },
+  "homepage": "https://github.com/lanaFerrari/git-github.com-lanaFerrari-boogle-game#readme"
+}
