@@ -21,3 +21,11 @@ https://lf-boggle-game.herokuapp.com/
 ## Credits
 - API: <a href="https://codebox.net/pages/boggle-game-solver-and-web-service">codebox.net</a>
 - Font: <a href="https://fonts.google.com/">Google Fonts</a>
+
+
+## Changes to make:
+- BEM
+- Separe SCSS files into categories
+- generate bord divs dinamically (using classes)
+- Include button to re-start game without having to refresh
+- make sure the words list is not gonna overflow
