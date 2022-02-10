@@ -13,7 +13,7 @@ Goals:
 - Javascript
 
 ## Deployed app
-https://lf-boggle-game.herokuapp.com/
+https://lanaferrari.github.io/boggle-game/
 
 ## Preview
 ![screenshot-127 0 0 1_5500-2022 02 06-16_46_01](https://user-images.githubusercontent.com/48991462/152691483-7199b746-ef91-4741-ad4a-32dd6d3542b8.png)
